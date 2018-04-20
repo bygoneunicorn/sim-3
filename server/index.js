@@ -19,4 +19,12 @@ massive(CONNECTION_STRING).then( db => {
 
 app.use( bodyParser.json())
 
+app.post('/register', (req, res, next) =>{
+    const dbInstance = req.app.get('db')
+    const {username, password} = req.body
+
+    dbInstance.create_user([username, password])
+        .then( () => res.status(200).send())
+} )
+
 
