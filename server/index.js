@@ -1,12 +1,22 @@
 require('dotenv').config();
 
 const express = require('express')
-    , session = require('express-session')
-    , passport = require('passport')
-    , Auth0Strategy = require('passport-auth0')
-    , massive = require('massive');
-
+    , bodyParser = require('body-parser')
+    , controller = require('./controller')
+    , massive = require('massive')
+    
 const app = express();
 
+const {
+    SERVER_PORT,
+    CONNECTION_STRING
+} = process.env
 
-//change
+massive(CONNECTION_STRING).then( db => {
+    app.set('db', db);
+    app.listen( SERVER_PORT, () => console.log(`Listening to all the good tunes on port: ${SERVER_PORT}`))
+})
+
+app.use( bodyParser.json())
+
+
