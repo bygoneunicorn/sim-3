@@ -5,16 +5,23 @@ export default class Dashboard extends Component{
         super()
 
         this.state = {
-
+            userPosts: true
         }
+        this.testFn = this.testFn.bind( this )
+    }
+    testFn(){
+        this.state.userPosts ? this.setState({userPosts: false}) : this.setState({userPosts: true})
+        console.log(this.state.userPosts)
     }
     render(){
+        console.log(this.props)
         return(
             <div>
                 <h1>Dashboard</h1>
                 <input placeholder="Search by Title" />
                 <button>Button</button>
                 <button>Reset</button>
+                <input type="checkbox" value={this.state.userPosts} onChange={this.testFn}/>
             </div>
         )
     }
@@ -22,6 +29,6 @@ export default class Dashboard extends Component{
 
 // function mapStateToProps(state){
 //     return{
-//         5
+        
 //     }
 // }

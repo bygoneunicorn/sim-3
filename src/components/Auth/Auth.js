@@ -36,10 +36,9 @@ class Auth extends Component{
             })
     }
     render(){
-        console.log(this.props)
         return(
             <div>
-                <h1>Auth</h1>
+                <h1>Login</h1>
                 <input placeholder='Enter username' onChange={(e) => this.handleUsername(e.target.value)}/>
                 <input placeholder='Enter password' onChange={(e) => this.handlePassword(e.target.value)}/>
                 <br />

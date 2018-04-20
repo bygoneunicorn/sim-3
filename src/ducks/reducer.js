@@ -1,4 +1,6 @@
-const initialState = {}
+const initialState = {
+    user: {}
+}
 
 // id, username, profile pic
 const USER_INFO = 'USER_INFO'

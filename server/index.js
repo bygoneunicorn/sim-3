@@ -5,6 +5,7 @@ const express = require('express')
     , controller = require('./controller')
     , massive = require('massive')
     , session = require('express-session')
+    , sessionmw = require('./middlewares/checkForSession')
     
 const app = express();
 
@@ -14,17 +15,18 @@ const {
     SESSION_SECRET
 } = process.env
 
-massive(CONNECTION_STRING).then( db => {
-    app.set('db', db);
-    app.listen( SERVER_PORT, () => console.log(`Listening to all the good tunes on port: ${SERVER_PORT}`))
-})
-
 app.use( bodyParser.json())
 app.use( session({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }))
+app.use(sessionmw.authenticate)
+
+massive(CONNECTION_STRING).then( db => {
+    app.set('db', db);
+    app.listen( SERVER_PORT, () => console.log(`Listening to all the good tunes on port: ${SERVER_PORT}`))
+})
 
 app.post('/register', (req, res, next) =>{
     console.log(req.body)
