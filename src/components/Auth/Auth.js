@@ -3,6 +3,7 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {reduceUserInfo} from '../../ducks/reducer';
+import './Auth.css';
 
 class Auth extends Component{
     constructor(){
@@ -37,8 +38,8 @@ class Auth extends Component{
     }
     render(){
         return(
-            <div>
-                <h1>Login</h1>
+            <div className="login">
+                <h1>Helo</h1><br />
                 <input placeholder='Enter username' onChange={(e) => this.handleUsername(e.target.value)}/>
                 <input placeholder='Enter password' onChange={(e) => this.handlePassword(e.target.value)}/>
                 <br />
