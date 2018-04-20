@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 export default class Auth extends Component{
     constructor(){
@@ -10,6 +11,7 @@ export default class Auth extends Component{
             password: ''
         }
         this.handleRegister = this.handleRegister.bind( this )
+        this.handleLogin = this.handleLogin.bind( this )
     }
     handleUsername(value){
         this.setState({ username: value})
@@ -24,6 +26,13 @@ export default class Auth extends Component{
                 console.log(res.data)
             })
     }
+    handleLogin(){
+        const {username, password} = this.state
+        axios.post('/login', {username, password}) 
+            .then( res => {
+                console.log(res.data)
+            })
+    }
     render(){
         return(
             <div>
@@ -32,7 +41,7 @@ export default class Auth extends Component{
                 <input placeholder='Enter password' onChange={(e) => this.handlePassword(e.target.value)}/>
                 <br />
                 <button onClick={this.handleRegister}>Register</button>
-                <button>Login</button>
+                <Link to='/dashboard'><button onClick={this.handleLogin}>Login</button></Link>
             </div>
         )
     }

@@ -20,11 +20,27 @@ massive(CONNECTION_STRING).then( db => {
 app.use( bodyParser.json())
 
 app.post('/register', (req, res, next) =>{
+    console.log(req.body)
     const dbInstance = req.app.get('db')
     const {username, password} = req.body
 
     dbInstance.create_user([username, password])
-        .then( () => res.status(200).send())
+        .then( user => {
+            console.log(user)
+            res.status(200).send(user);
+            
+        })
 } )
+app.post('/login', (req, res, next) => {
+    console.log(req.body)
+    const dbInstance = req.app.get('db')
+    const {username, password} = req.body
+
+    console.log(username, password);
+    dbInstance.get_user([username, password])
+        .then( user => {
+            res.status(200).send(user)
+        })
+})
 
 
