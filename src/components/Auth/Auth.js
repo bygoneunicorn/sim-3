@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {reduceUserInfo} from '../../ducks/reducer';
 
-export default class Auth extends Component{
+class Auth extends Component{
     constructor(){
         super()
 
@@ -23,17 +25,18 @@ export default class Auth extends Component{
         const {username, password} = this.state
         axios.post('/register', {username, password})
             .then( res => {
-                console.log(res.data)
+                this.props.reduceUserInfo()
             })
     }
     handleLogin(){
         const {username, password} = this.state
         axios.post('/login', {username, password}) 
             .then( res => {
-                console.log(res.data)
+                this.props.reduceUserInfo()
             })
     }
     render(){
+        console.log(this.props)
         return(
             <div>
                 <h1>Auth</h1>
@@ -46,3 +49,6 @@ export default class Auth extends Component{
         )
     }
 }
+
+export default connect(null, {reduceUserInfo})(Auth)
+
